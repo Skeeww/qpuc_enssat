@@ -18,6 +18,7 @@ const questions: Question[] = [
         options: ['Requin', 'Baleine'],
         correctAnswer: 1,
     },
+    // Ajoutez d'autres questions ici
 ];
 
 const App: React.FC = () => {
@@ -27,38 +28,44 @@ const App: React.FC = () => {
     const [isCorrectAnswer, setIsCorrectAnswer] = useState<boolean | null>(null);
 
     const handleSelectOption = (index: number) => {
+        // Empêcher la sélection d'une nouvelle option une fois la réponse soumise
+        if (isSubmitted) return;
         setSelectedOption(index);
     };
 
     const handleSubmit = () => {
-        if (selectedOption === null) return; // Ne fait rien si aucune option n'est sélectionnée
-        if (!isSubmitted) { // Si la réponse n'a pas encore été validée
-            const isCorrect = questions[currentQuestionIndex].correctAnswer === selectedOption;
-            setIsCorrectAnswer(isCorrect);
-            setIsSubmitted(true);
-        } else { // Passer à la question suivante
-            setCurrentQuestionIndex((prevIndex) => (prevIndex + 1) % questions.length);
-            setIsSubmitted(false);
-            setSelectedOption(null);
-            setIsCorrectAnswer(null);
-        }
+        if (selectedOption === null || isSubmitted) return; // Ne rien faire si aucune option n'est sélectionnée ou si la question a déjà été soumise
+        const isCorrect = questions[currentQuestionIndex].correctAnswer === selectedOption;
+        setIsCorrectAnswer(isCorrect);
+        setIsSubmitted(true);
+    };
+
+    const goToNextQuestion = () => {
+        setCurrentQuestionIndex((prevIndex) => (prevIndex + 1) % questions.length);
+        setIsSubmitted(false);
+        setSelectedOption(null);
+        setIsCorrectAnswer(null);
     };
 
     const currentQuestion = questions[currentQuestionIndex];
-    const optionsGrid = currentQuestion.options.length === 4 ? 'options-grid' : 'options-line';
 
     return (
         <div className={`app ${isCorrectAnswer === true ? 'correct' : isSubmitted && !isCorrectAnswer ? 'incorrect' : ''}`}>
             <div className="container">
                 <div className="question">{currentQuestion.question}</div>
-                <div className={`options ${optionsGrid}`}>
+                <div className="options">
                     {currentQuestion.options.map((option, index) => (
-                        <button key={index} onClick={() => handleSelectOption(index)} className={selectedOption === index ? 'selected' : ''}>
+                        <button
+                            key={index}
+                            onClick={() => handleSelectOption(index)}
+                            disabled={isSubmitted}
+                            className={`${selectedOption === index ? 'selected' : ''} ${!isSubmitted ? '' : index === currentQuestion.correctAnswer ? 'correct-answer' : 'incorrect-answer'}`}
+                        >
                             {option}
                         </button>
                     ))}
                 </div>
-                <button onClick={handleSubmit} disabled={selectedOption === null && !isSubmitted}>
+                <button onClick={isSubmitted ? goToNextQuestion : handleSubmit}>
                     {isSubmitted ? 'Question suivante' : 'Valider'}
                 </button>
             </div>
