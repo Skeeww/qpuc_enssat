@@ -87,3 +87,28 @@ button:disabled {
   background-color: darkgreen !important; /* Vert pour une réponse correcte sélectionnée */
   color: white;
 }
+
+.result-message {
+  text-align: center;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 8px;
+  background-color: #f7f7f7;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.result-message p {
+  margin: 10px 0;
+  font-size: 20px;
+  color: #333;
+}
+
+/* Styles spécifiques pour le score et le message */
+.score {
+  font-weight: bold;
+  color: #4CAF50;
+}
+
+.message {
+  font-style: italic;
+}

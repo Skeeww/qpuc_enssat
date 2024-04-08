@@ -1,0 +1,52 @@
+[
+  {
+    "question": "Quelle est la capitale de la France ?",
+    "options": ["Paris", "Berlin", "Madrid", "Londres"],
+    "correctAnswer": 0
+  },
+  {
+    "question": "Lequel de ces animaux est un mammifère ?",
+    "options": ["Requin", "Baleine"],
+    "correctAnswer": 1
+  },
+  {
+    "question": "Qui a peint la Joconde ?",
+    "options": ["Vincent Van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Claude Monet"],
+    "correctAnswer": 2
+  },
+  {
+    "question": "Quel est l'élément chimique dont le symbole est 'O' ?",
+    "options": ["Or", "Osmium", "Oxygène", "Oganesson"],
+    "correctAnswer": 2
+  },
+  {
+    "question": "Dans quelle ville se trouve la Statue de la Liberté ?",
+    "options": ["Los Angeles", "New York", "Miami", "San Francisco"],
+    "correctAnswer": 1
+  },
+  {
+    "question": "Quelle est la plus longue rivière du monde ?",
+    "options": ["Le Nil", "L'Amazone", "Le Yangtsé", "Le Mississippi"],
+    "correctAnswer": 1
+  },
+  {
+    "question": "Qui a écrit 'Les Misérables' ?",
+    "options": ["Victor Hugo", "Alexandre Dumas", "Émile Zola", "François Mauriac"],
+    "correctAnswer": 0
+  },
+  {
+    "question": "En quelle année l'homme a-t-il marché sur la Lune pour la première fois ?",
+    "options": ["1965", "1969", "1971", "1973"],
+    "correctAnswer": 1
+  },
+  {
+    "question": "Quel pays est le plus peuplé du monde ?",
+    "options": ["Inde", "États-Unis", "Chine", "Indonésie"],
+    "correctAnswer": 2
+  },
+  {
+    "question": "Quel est le plus grand océan du monde ?",
+    "options": ["L'océan Atlantique", "L'océan Pacifique", "L'océan Indien", "L'océan Arctique"],
+    "correctAnswer": 1
+  }
+]

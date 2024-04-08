@@ -1,0 +1,12 @@
+[
+  {
+    "question": "Quelle est la capitale de la France ?",
+    "options": ["Paris", "Berlin", "Madrid", "Londres"],
+    "correctAnswer": 0
+  },
+  {
+    "question": "Lequel de ces animaux est un mammifère ?",
+    "options": ["Requin", "Baleine"],
+    "correctAnswer": 1
+  }
+]
