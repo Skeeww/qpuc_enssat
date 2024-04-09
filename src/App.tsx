@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import questions from './questions.json';
+import questions from './questions1.json';
 
 const App: React.FC = () => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -14,12 +14,12 @@ const App: React.FC = () => {
     // Hook called on current question index changed
     useEffect(() => {
         // Set quiz to finish
-        if (currentQuestionIndex === questions.length - 1) {
+        if (currentQuestionIndex === questions.length) {
             setQuizFinished(true);
             return;
-        }
+        }else{
         // Reset state of user interface and update question
-        if (currentQuestionIndex < questions.length - 1) {
+        // if (currentQuestionIndex <= questions.length 1) {
             setIsSubmitted(false);
             setSelectedOption(null);
             setIsCorrectAnswer(null);
@@ -73,9 +73,18 @@ const App: React.FC = () => {
         );
     };
 
+    let classname = '';
+
+    if (!quizFinished && isCorrectAnswer === true) {
+        classname = 'correct';
+    }else if (!quizFinished && isCorrectAnswer === false) {
+        classname = 'incorrect';
+    }
+
+
     return (
         <div
-            className={`app ${isCorrectAnswer === true ? 'correct' : isSubmitted && !isCorrectAnswer ? 'incorrect' : ''}`}>
+            className={`app ${classname}`}>
             <div className="container">
                 {quizFinished ? (
                     renderResultMessage()
