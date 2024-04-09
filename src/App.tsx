@@ -1,14 +1,32 @@
-import React, {useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import questions from './questions.json';
 
 const App: React.FC = () => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [currentQuestion, setCurrentQuestion] = useState<typeof questions[0] | null>(null);
     const [selectedOption, setSelectedOption] = useState<number | null>(null);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isCorrectAnswer, setIsCorrectAnswer] = useState<boolean | null>(null);
     const [score, setScore] = useState(0);
     const [quizFinished, setQuizFinished] = useState(false);
+
+    // Hook called on current question index changed
+    useEffect(() => {
+        // Set quiz to finish
+        if (currentQuestionIndex === questions.length - 1) {
+            setQuizFinished(true);
+            return;
+        }
+        // Reset state of user interface and update question
+        if (currentQuestionIndex < questions.length - 1) {
+            setIsSubmitted(false);
+            setSelectedOption(null);
+            setIsCorrectAnswer(null);
+            setCurrentQuestion(questions[currentQuestionIndex]);
+            return;
+        }
+    }, [currentQuestionIndex]);
 
     const handleSelectOption = (index: number) => {
         // Empêcher la sélection d'une nouvelle option une fois la réponse soumise
@@ -24,19 +42,10 @@ const App: React.FC = () => {
         }
         setIsCorrectAnswer(isCorrect);
         setIsSubmitted(true);
-
-        if (currentQuestionIndex === questions.length - 1) {
-            setQuizFinished(true); // Marquer le quiz comme terminé
-        }
     };
 
     const goToNextQuestion = () => {
-        if (currentQuestionIndex < questions.length - 1) {
-            setCurrentQuestionIndex(currentQuestionIndex + 1);
-            setIsSubmitted(false);
-            setSelectedOption(null);
-            setIsCorrectAnswer(null);
-        }
+        setCurrentQuestionIndex(currentQuestionIndex + 1);
     };
 
     const renderResultMessage = () => {
@@ -59,8 +68,6 @@ const App: React.FC = () => {
         );
     };
 
-    const currentQuestion = questions[currentQuestionIndex];
-
     return (
         <div
             className={`app ${isCorrectAnswer === true ? 'correct' : isSubmitted && !isCorrectAnswer ? 'incorrect' : ''}`}>
@@ -68,9 +75,9 @@ const App: React.FC = () => {
                 {quizFinished ? (
                     renderResultMessage()
                 ) : (<>
-                    <div className="question">{currentQuestion.question}</div>
+                    <div className="question">{currentQuestion?.question}</div>
                     <div className="options">
-                        {currentQuestion.options.map((option, index) => (
+                        {currentQuestion?.options.map((option, index) => (
                             <button
                                 key={index}
                                 onClick={() => handleSelectOption(index)}
