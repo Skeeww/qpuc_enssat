@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import questions from './questions.json';
 
@@ -80,23 +80,27 @@ const App: React.FC = () => {
                 {quizFinished ? (
                     renderResultMessage()
                 ) : (<>
-                    <div className="question">{currentQuestion?.question}</div>
-                    <div className="options">
-                        {currentQuestion?.options.map((option, index) => (
-                            <button
-                                key={index}
-                                onClick={() => handleSelectOption(index)}
-                                disabled={isSubmitted}
-                                className={`${selectedOption === index ? 'selected' : ''} ${!isSubmitted ? '' : index === currentQuestion.correctAnswer ? 'correct-answer' : 'incorrect-answer'}`}
-                            >
-                                {option}
-                            </button>
-                        ))}
+                    <div className="question-container">
+                        <div className="question">{currentQuestion?.question}</div>
+                        <div className="options">
+                            {currentQuestion?.options.map((option, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => handleSelectOption(index)}
+                                    disabled={isSubmitted}
+                                    className={`${selectedOption === index ? 'selected' : ''} ${!isSubmitted ? '' : index === currentQuestion.correctAnswer ? 'correct-answer' : 'incorrect-answer'}`}
+                                >
+                                    {option}
+                                </button>
+                            ))}
+                        </div>
                     </div>
-                    <button onClick={handleSubmit}>
-                        {isSubmitted ? 'Question suivante' : 'Valider'}
-                    </button>
-                </>)}
+                        <div className="submit-button-container">
+                            <button onClick={handleSubmit}>
+                                {isSubmitted ? 'Question suivante' : 'Valider'}
+                            </button>
+                        </div>
+                    </>)}
             </div>
         </div>
     );

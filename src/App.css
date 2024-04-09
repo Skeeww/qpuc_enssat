@@ -3,6 +3,20 @@ html, body, #root {
   width: 100%;
   margin: 0;
   padding: 0;
+
+}
+
+:root {
+  /* Définition des couleurs de base */
+  --color-primary: #A91B3A;
+
+  --color-selected: #3498db;
+
+  --color-correct: #4CAF50;
+  --color-correct-selected: #2E8540;
+
+  --color-incorrect: #6D1024;
+  --color-incorrect-selected: #4A0A1A;
 }
 
 .app {
@@ -15,11 +29,21 @@ html, body, #root {
   padding: 20px;
   box-sizing: border-box;
   transition: background-color 0.5s;
+  background-color: var(--color-primary); /* Couleur de fond */
 }
 
 .container {
-  text-align: center;
-  max-width: 100%; /* Cela s'assure que le conteneur ne dépasse pas la largeur de l'écran */
+  /*text-align: center;*/
+  /*max-width: 100%; !* Cela s'assure que le conteneur ne dépasse pas la largeur de l'écran *!*/
+  display: flex; /* Utilise Flexbox */
+  flex-direction: row; /* Éléments disposés verticalement */
+  align-items: center; /* Alignement à droite pour les enfants */
+}
+
+.submit-button-container {
+  padding-left: 50px;
+  align-content: center;
+  height: 100%;
 }
 
 .options {
@@ -32,7 +56,7 @@ html, body, #root {
   font-size: 24px; /* Taille de la police */
   font-weight: bold; /* Gras */
   margin-bottom: 20px; /* Espacement en dessous de la question */
-  color: #333; /* Couleur du texte */
+  color: white; /* Couleur du texte */
   padding: 10px; /* Padding autour du texte */
   border-bottom: 2px solid #eee; /* Ligne de séparation sous la question */
   text-align: center; /* Centrage du texte */
@@ -69,23 +93,31 @@ button:disabled {
   background-color: #3498db !important; /* Bleu pour la réponse sélectionnée */
 }
 
+.correct {
+  background-color: var(--color-correct); /* Vert pour la bonne réponse */
+}
+
+.incorrect {
+  background-color: var(--color-incorrect); /* Vert pour la bonne réponse */
+}
+
 .correct-answer {
-  background-color: #4CAF50 !important; /* Vert pour la bonne réponse */
+  background-color: var(--color-correct) !important; /* Vert pour la bonne réponse */
   color: black;
 }
 
 .incorrect-answer {
-  background-color: lightcoral !important; /* Rouge pour une réponse incorrecte si nécessaire */
-}
-
-.incorrect-answer.selected {
-  background-color: darkred !important; /* Rouge pour une réponse incorrecte sélectionnée */
-    color: white;
+  background-color: var(--color-incorrect) !important; /* Rouge pour une réponse incorrecte si nécessaire */
 }
 
 .correct-answer.selected {
-  background-color: darkgreen !important; /* Vert pour une réponse correcte sélectionnée */
+  background-color: var(--color-correct-selected) !important; /* Vert pour une réponse correcte sélectionnée */
   color: white;
+}
+
+.incorrect-answer.selected {
+  background-color: var(--color-incorrect-selected) !important; /* Rouge pour une réponse incorrecte sélectionnée */
+    color: white;
 }
 
 .result-message {
