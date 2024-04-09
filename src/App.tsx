@@ -35,17 +35,22 @@ const App: React.FC = () => {
     };
 
     const handleSubmit = () => {
-        if (selectedOption === null || isSubmitted) return;
+        // No option selected, do nothing
+        if (selectedOption === null) return;
+
+        // If we already have an answer submitted we go to the next question
+        if (isSubmitted) {
+            setCurrentQuestionIndex(currentQuestionIndex + 1);
+            return;
+        }
+
+        // If we have not submitted our answer we show the response and handle the score
         const isCorrect = questions[currentQuestionIndex].correctAnswer === selectedOption;
         if (isCorrect) {
             setScore(score + 1);
         }
         setIsCorrectAnswer(isCorrect);
         setIsSubmitted(true);
-    };
-
-    const goToNextQuestion = () => {
-        setCurrentQuestionIndex(currentQuestionIndex + 1);
     };
 
     const renderResultMessage = () => {
@@ -88,7 +93,7 @@ const App: React.FC = () => {
                             </button>
                         ))}
                     </div>
-                    <button onClick={isSubmitted ? goToNextQuestion : handleSubmit}>
+                    <button onClick={handleSubmit}>
                         {isSubmitted ? 'Question suivante' : 'Valider'}
                     </button>
                 </>)}
