@@ -16,6 +16,8 @@ const App: React.FC = () => {
     const [currentQuestion, setCurrentQuestion] = useState<typeof questions[0] | null>(null);
     const [optionPool, setOptionPool] = useState<string[]>([]);
 
+    const [cashValue, setCashValue] = useState<string>("");
+
     const [selectedOption, setSelectedOption] = useState<number | null>(null);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isCorrectAnswer, setIsCorrectAnswer] = useState<boolean | null>(null);
@@ -36,6 +38,7 @@ const App: React.FC = () => {
             setIsCorrectAnswer(null);
             setQuestionType(null);
             setOptionPool([]);
+            setCashValue("");
             setCurrentQuestion(questions[currentQuestionIndex]);
             return;
         }
@@ -78,7 +81,7 @@ const App: React.FC = () => {
 
     const handleSubmit = () => {
         // No option selected, do nothing
-        if (selectedOption === null) return;
+        if (selectedOption === null && cashValue.length === 0) return;
 
         // If we already have an answer submitted we go to the next question
         if (isSubmitted) {
@@ -86,8 +89,14 @@ const App: React.FC = () => {
             return;
         }
 
-        // If we have not submitted our answer we show the response and handle the score
-        const isCorrect = questions[currentQuestionIndex].correctAnswer === selectedOption;
+        let isCorrect = false;
+        // If we choose DUO or CARRE
+        if (questionType === QuestionType.DUO || questionType === QuestionType.CARRE) {
+            // If we have not submitted our answer we show the response and handle the score
+            isCorrect = questions[currentQuestionIndex].correctAnswer === selectedOption;
+        } else if (questionType === QuestionType.CASH) {
+            isCorrect = questions[currentQuestionIndex].options[questions[currentQuestionIndex].correctAnswer].trim().toLocaleLowerCase() === cashValue.trim()
+        }
         if (isCorrect) {
             setScore(score + 1);
         }
@@ -144,7 +153,11 @@ const App: React.FC = () => {
                                     {option}
                                 </button>
                             )) : <>
-                                <input type='text'></input>
+                                {isSubmitted ? <>
+                                    <input type='text' disabled value={currentQuestion?.options[currentQuestion?.correctAnswer]}></input>
+                                </> : <>
+                                    <input type='text' value={cashValue} onChange={(e) => setCashValue(e.target.value)}></input>
+                                </>}
                             </>}
                         </div>
                     </div>
