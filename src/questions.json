@@ -6,12 +6,17 @@
   },
   {
     "question": "Lequel de ces animaux est un mammifère ?",
-    "options": ["Requin", "Baleine"],
+    "options": ["Requin", "Baleine", "Feur", "Coubehchiche"],
     "correctAnswer": 1
   },
   {
     "question": "Qui a peint la Joconde ?",
-    "options": ["Vincent Van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Claude Monet"],
+    "options": [
+      "Vincent Van Gogh",
+      "Pablo Picasso",
+      "Leonardo da Vinci",
+      "Claude Monet"
+    ],
     "correctAnswer": 2
   },
   {
@@ -31,7 +36,12 @@
   },
   {
     "question": "Qui a écrit 'Les Misérables' ?",
-    "options": ["Victor Hugo", "Alexandre Dumas", "Émile Zola", "François Mauriac"],
+    "options": [
+      "Victor Hugo",
+      "Alexandre Dumas",
+      "Émile Zola",
+      "François Mauriac"
+    ],
     "correctAnswer": 0
   },
   {
@@ -46,7 +56,12 @@
   },
   {
     "question": "Quel est le plus grand océan du monde ?",
-    "options": ["L'océan Atlantique", "L'océan Pacifique", "L'océan Indien", "L'océan Arctique"],
+    "options": [
+      "L'océan Atlantique",
+      "L'océan Pacifique",
+      "L'océan Indien",
+      "L'océan Arctique"
+    ],
     "correctAnswer": 1
   }
 ]
