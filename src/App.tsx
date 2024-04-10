@@ -90,36 +90,27 @@ const App: React.FC = () => {
         }
 
         let isCorrect = false;
+        let scoreAdd = 0;
         // If we choose DUO or CARRE
         if (questionType === QuestionType.DUO || questionType === QuestionType.CARRE) {
             // If we have not submitted our answer we show the response and handle the score
             isCorrect = questions[currentQuestionIndex].correctAnswer === selectedOption;
+            scoreAdd = (questionType === QuestionType.DUO) ? 3 : 1;
         } else if (questionType === QuestionType.CASH) {
             isCorrect = questions[currentQuestionIndex].options[questions[currentQuestionIndex].correctAnswer].trim().toLocaleLowerCase() === cashValue.trim()
+            scoreAdd = 5;
         }
         if (isCorrect) {
-            setScore(score + 1);
+            setScore(score + scoreAdd);
         }
         setIsCorrectAnswer(isCorrect);
         setIsSubmitted(true);
     };
 
     const renderResultMessage = () => {
-        const percentage = (score / questions.length) * 100;
-        let message = "";
-
-        if (percentage < 25) {
-            message = "Nullos";
-        } else if (percentage >= 25 && percentage <= 75) {
-            message = "Ouais pas mal";
-        } else if (percentage > 75) {
-            message = "French Monster";
-        }
-
         return (
             <div className="result-message">
-                <p className="score">Ton score : {score} / {questions.length}</p>
-                <p className="message">{message}</p>
+                <p className="score">Résultat : {score} points</p>
             </div>
         );
     };
