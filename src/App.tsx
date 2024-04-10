@@ -1,11 +1,24 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
+import { cloneDeep, shuffle } from 'lodash';
 import './App.css';
-import questions from './questions1.json';
+import questions from './questions.json';
+
+enum QuestionType {
+    DUO,
+    CARRE,
+    CASH
+}
 
 const App: React.FC = () => {
+    const [questionType, setQuestionType] = useState<QuestionType | null>(null);
+
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [currentQuestion, setCurrentQuestion] = useState<typeof questions[0] | null>(null);
-    const [selectedOption, setSelectedOption] = useState<number | null>(null);
+    const [optionPool, setOptionPool] = useState<string[]>([]);
+
+    const [cashValue, setCashValue] = useState<string>("");
+
+    const [selectedOption, setSelectedOption] = useState<string>("");
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isCorrectAnswer, setIsCorrectAnswer] = useState<boolean | null>(null);
     const [score, setScore] = useState(0);
@@ -17,26 +30,58 @@ const App: React.FC = () => {
         if (currentQuestionIndex === questions.length) {
             setQuizFinished(true);
             return;
-        }else{
-        // Reset state of user interface and update question
-        // if (currentQuestionIndex <= questions.length 1) {
+        } else {
+            // Reset state of user interface and update question
+            // if (currentQuestionIndex <= questions.length 1) {
             setIsSubmitted(false);
-            setSelectedOption(null);
+            setSelectedOption("");
             setIsCorrectAnswer(null);
+            setQuestionType(null);
+            setOptionPool([]);
+            setCashValue("");
             setCurrentQuestion(questions[currentQuestionIndex]);
             return;
         }
     }, [currentQuestionIndex]);
 
-    const handleSelectOption = (index: number) => {
+    // Hook called on question type changed
+    useEffect(() => {
+        if (!currentQuestion) return;
+        const options = cloneDeep(currentQuestion.options);
+        const correctAnswer = options.splice(currentQuestion.correctAnswer, 1)[0];
+        const answers = shuffle(options);
+
+        console.log("Correct answser: ", correctAnswer);
+        console.log("Options: ", options);
+        console.log("Answers: ", answers);
+
+        switch (questionType) {
+            case QuestionType.DUO:
+                setOptionPool(
+                    shuffle(
+                        [answers[0], correctAnswer]
+                    )
+                );
+                break;
+            case QuestionType.CARRE:
+                setOptionPool(
+                    shuffle(
+                        [...answers, correctAnswer]
+                    )
+                );
+                break;
+        }
+    }, [currentQuestion, questionType]);
+
+    const handleSelectOption = (option: string) => {
         // Empêcher la sélection d'une nouvelle option une fois la réponse soumise
         if (isSubmitted) return;
-        setSelectedOption(index);
+        setSelectedOption(option);
     };
 
     const handleSubmit = () => {
         // No option selected, do nothing
-        if (selectedOption === null) return;
+        if (selectedOption.length === 0 && cashValue.length === 0) return;
 
         // If we already have an answer submitted we go to the next question
         if (isSubmitted) {
@@ -44,31 +89,29 @@ const App: React.FC = () => {
             return;
         }
 
-        // If we have not submitted our answer we show the response and handle the score
-        const isCorrect = questions[currentQuestionIndex].correctAnswer === selectedOption;
+        const correctAnswer = questions[currentQuestionIndex].options[questions[currentQuestionIndex].correctAnswer];
+        let isCorrect = false;
+        let scoreAdd = 0;
+        // If we choose DUO or CARRE
+        if (questionType === QuestionType.DUO || questionType === QuestionType.CARRE) {
+            // If we have not submitted our answer we show the response and handle the score
+            isCorrect = correctAnswer === selectedOption;
+            scoreAdd = (questionType === QuestionType.DUO) ? 3 : 1;
+        } else if (questionType === QuestionType.CASH) {
+            isCorrect = (correctAnswer.trim() === cashValue.trim()) || (correctAnswer.trim().toLocaleLowerCase() === cashValue.trim())
+            scoreAdd = 5;
+        }
         if (isCorrect) {
-            setScore(score + 1);
+            setScore(score + scoreAdd);
         }
         setIsCorrectAnswer(isCorrect);
         setIsSubmitted(true);
     };
 
     const renderResultMessage = () => {
-        const percentage = (score / questions.length) * 100;
-        let message = "";
-
-        if (percentage < 25) {
-            message = "Nullos";
-        } else if (percentage >= 25 && percentage <= 75) {
-            message = "Ouais pas mal";
-        } else if (percentage > 75) {
-            message = "French Monster";
-        }
-
         return (
             <div className="result-message">
-                <p className="score">Ton score : {score} / {questions.length}</p>
-                <p className="message">{message}</p>
+                <p className="score">Résultat : {score} points</p>
             </div>
         );
     };
@@ -77,7 +120,7 @@ const App: React.FC = () => {
 
     if (!quizFinished && isCorrectAnswer === true) {
         classname = 'correct';
-    }else if (!quizFinished && isCorrectAnswer === false) {
+    } else if (!quizFinished && isCorrectAnswer === false) {
         classname = 'incorrect';
     }
 
@@ -88,28 +131,40 @@ const App: React.FC = () => {
             <div className="container">
                 {quizFinished ? (
                     renderResultMessage()
-                ) : (<>
+                ) : (questionType !== null ? (<>
                     <div className="question-container">
                         <div className="question">{currentQuestion?.question}</div>
                         <div className="options">
-                            {currentQuestion?.options.map((option, index) => (
+                            {optionPool.length ? optionPool?.map((option, index) => (
                                 <button
                                     key={index}
-                                    onClick={() => handleSelectOption(index)}
+                                    onClick={() => handleSelectOption(option)}
                                     disabled={isSubmitted}
-                                    className={`${selectedOption === index ? 'selected' : ''} ${!isSubmitted ? '' : index === currentQuestion.correctAnswer ? 'correct-answer' : 'incorrect-answer'}`}
+                                    className={`${selectedOption === option ? 'selected' : ''} ${!isSubmitted ? '' : option === currentQuestion?.options[currentQuestion?.correctAnswer] ? 'correct-answer' : 'incorrect-answer'}`}
                                 >
                                     {option}
                                 </button>
-                            ))}
+                            )) : <>
+                                {isSubmitted ? <>
+                                    <input type='text' disabled value={currentQuestion?.options[currentQuestion?.correctAnswer]}></input>
+                                </> : <>
+                                    <input type='text' value={cashValue} onChange={(e) => setCashValue(e.target.value)}></input>
+                                </>}
+                            </>}
                         </div>
                     </div>
-                        <div className="submit-button-container">
-                            <button onClick={handleSubmit}>
-                                {isSubmitted ? 'Question suivante' : 'Valider'}
-                            </button>
-                        </div>
-                    </>)}
+                    <div className="submit-button-container">
+                        <button onClick={handleSubmit}>
+                            {isSubmitted ? 'Question suivante' : 'Valider'}
+                        </button>
+                    </div>
+                </>) : (<>
+                    <div className='options'>
+                        <button onClick={() => setQuestionType(QuestionType.DUO)}>Duo</button>
+                        <button onClick={() => setQuestionType(QuestionType.CARRE)}>Carré</button>
+                        <button onClick={() => setQuestionType(QuestionType.CASH)}>Cash</button>
+                    </div>
+                </>))}
             </div>
         </div>
     );
