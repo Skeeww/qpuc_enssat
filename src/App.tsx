@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { cloneDeep, shuffle } from 'lodash';
 import './App.css';
-import questions from './questions1.json';
+import questions from './questions.json';
 
 enum QuestionType {
     DUO,
@@ -18,7 +18,7 @@ const App: React.FC = () => {
 
     const [cashValue, setCashValue] = useState<string>("");
 
-    const [selectedOption, setSelectedOption] = useState<number | null>(null);
+    const [selectedOption, setSelectedOption] = useState<string>("");
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isCorrectAnswer, setIsCorrectAnswer] = useState<boolean | null>(null);
     const [score, setScore] = useState(0);
@@ -34,7 +34,7 @@ const App: React.FC = () => {
             // Reset state of user interface and update question
             // if (currentQuestionIndex <= questions.length 1) {
             setIsSubmitted(false);
-            setSelectedOption(null);
+            setSelectedOption("");
             setIsCorrectAnswer(null);
             setQuestionType(null);
             setOptionPool([]);
@@ -73,15 +73,15 @@ const App: React.FC = () => {
         }
     }, [currentQuestion, questionType]);
 
-    const handleSelectOption = (index: number) => {
+    const handleSelectOption = (option: string) => {
         // Empêcher la sélection d'une nouvelle option une fois la réponse soumise
         if (isSubmitted) return;
-        setSelectedOption(index);
+        setSelectedOption(option);
     };
 
     const handleSubmit = () => {
         // No option selected, do nothing
-        if (selectedOption === null && cashValue.length === 0) return;
+        if (selectedOption.length === 0 && cashValue.length === 0) return;
 
         // If we already have an answer submitted we go to the next question
         if (isSubmitted) {
@@ -89,15 +89,16 @@ const App: React.FC = () => {
             return;
         }
 
+        const correctAnswer = questions[currentQuestionIndex].options[questions[currentQuestionIndex].correctAnswer];
         let isCorrect = false;
         let scoreAdd = 0;
         // If we choose DUO or CARRE
         if (questionType === QuestionType.DUO || questionType === QuestionType.CARRE) {
             // If we have not submitted our answer we show the response and handle the score
-            isCorrect = questions[currentQuestionIndex].correctAnswer === selectedOption;
+            isCorrect = correctAnswer === selectedOption;
             scoreAdd = (questionType === QuestionType.DUO) ? 3 : 1;
         } else if (questionType === QuestionType.CASH) {
-            isCorrect = questions[currentQuestionIndex].options[questions[currentQuestionIndex].correctAnswer].trim().toLocaleLowerCase() === cashValue.trim()
+            isCorrect = (correctAnswer.trim() === cashValue.trim()) || (correctAnswer.trim().toLocaleLowerCase() === cashValue.trim())
             scoreAdd = 5;
         }
         if (isCorrect) {
@@ -137,9 +138,9 @@ const App: React.FC = () => {
                             {optionPool.length ? optionPool?.map((option, index) => (
                                 <button
                                     key={index}
-                                    onClick={() => handleSelectOption(index)}
+                                    onClick={() => handleSelectOption(option)}
                                     disabled={isSubmitted}
-                                    className={`${selectedOption === index ? 'selected' : ''} ${!isSubmitted ? '' : index === currentQuestion?.correctAnswer ? 'correct-answer' : 'incorrect-answer'}`}
+                                    className={`${selectedOption === option ? 'selected' : ''} ${!isSubmitted ? '' : option === currentQuestion?.options[currentQuestion?.correctAnswer] ? 'correct-answer' : 'incorrect-answer'}`}
                                 >
                                     {option}
                                 </button>
