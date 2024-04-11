@@ -96,7 +96,7 @@ const App: React.FC = () => {
         if (questionType === QuestionType.DUO || questionType === QuestionType.CARRE) {
             // If we have not submitted our answer we show the response and handle the score
             isCorrect = correctAnswer === selectedOption;
-            scoreAdd = (questionType === QuestionType.DUO) ? 3 : 1;
+            scoreAdd = (questionType === QuestionType.DUO) ? 1 : 3;
         } else if (questionType === QuestionType.CASH) {
             isCorrect = (correctAnswer.trim() === cashValue.trim()) || (correctAnswer.trim().toLocaleLowerCase() === cashValue.trim())
             scoreAdd = 5;

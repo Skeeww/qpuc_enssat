@@ -1,12 +1,62 @@
 [
   {
-    "question": "Quelle est la capitale de la France ?",
-    "options": ["Paris", "Berlin", "Madrid", "Londres"],
+    "question": "Quel est le constructeur de l'Airbus A320neo ?",
+    "options": ["Boeing", "Airbus", "Embraer", "Bombardier"],
+    "correctAnswer": 1
+  },
+  {
+    "question": "Quelle est la signification de 'neo' dans Airbus A320neo ?",
+    "options": [
+      "New Engine Option",
+      "Next-Generation Engine Option",
+      "New Eco-friendly Operation",
+      "New Efficiency Optimization"
+    ],
     "correctAnswer": 0
   },
   {
-    "question": "Lequel de ces animaux est un mammifère ?",
-    "options": ["Requin", "Baleine"],
+    "question": "Quel est le type de moteur utilisé dans l'Airbus A320neo ?",
+    "options": [
+      "CFM International LEAP",
+      "Pratt & Whitney PW1000G",
+      "Rolls-Royce Trent",
+      "General Electric GE90"
+    ],
     "correctAnswer": 1
+  },
+  {
+    "question": "Quel est l'avantage principal de l'Airbus A320neo par rapport à la version précédente ?",
+    "options": [
+      "Meilleure autonomie",
+      "Plus grande capacité de passagers",
+      "Consommation de carburant réduite",
+      "Vitesse de croisière accrue"
+    ],
+    "correctAnswer": 2
+  },
+  {
+    "question": "Combien de variantes de l'Airbus A320neo sont actuellement disponibles ?",
+    "options": ["1", "2", "3", "4"],
+    "correctAnswer": 2
+  },
+  {
+    "question": "Quelle compagnie aérienne a effectué le premier vol commercial avec l'Airbus A320neo ?",
+    "options": ["Lufthansa", "IndiGo", "AirAsia", "American Airlines"],
+    "correctAnswer": 1
+  },
+  {
+    "question": "Quelle est la capacité typique de passagers de l'Airbus A320neo en configuration standard ?",
+    "options": [
+      "150-180 passagers",
+      "200-220 passagers",
+      "250-270 passagers",
+      "300-320 passagers"
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "question": "Quel est le matériau principal utilisé dans la construction de l'Airbus A320neo ?",
+    "options": ["Aluminium", "Titane", "Fibre de carbone", "Acier"],
+    "correctAnswer": 2
   }
 ]

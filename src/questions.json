@@ -1,67 +1,74 @@
 [
   {
-    "question": "Quelle est la capitale de la France ?",
-    "options": ["Paris", "Berlin", "Madrid", "Londres"],
-    "correctAnswer": 0
-  },
-  {
-    "question": "Lequel de ces animaux est un mammifère ?",
-    "options": ["Requin", "Baleine", "Feur", "Coubehchiche"],
+    "question": "Quelle est la dernière année où la Bretagne était indépendante ?",
+    "options": ["2024", "1488", "1492", "1865"],
     "correctAnswer": 1
   },
   {
-    "question": "Qui a peint la Joconde ?",
+    "question": "Quelle est la plus petite île bretonne ?",
+    "options": ["La Corse", "Belle-île", "l’Ille et Vilaine", "Quéménès"],
+    "correctAnswer": 3
+  },
+  {
+    "question": "Quel est le prénom du père de Noan ?",
+    "options": ["Michel", "Cédric", "Valentin", "Damso"],
+    "correctAnswer": 1
+  },
+  {
+    "question": "Comment s’appelle l’instrument typique breton, souvent confondu avec la cornemuse ?",
+    "options": ["La cornemuse", "la clarinette", "la bombarde", "le biniou"],
+    "correctAnswer": 3
+  },
+  {
+    "question": "Quelle est la meilleure émission du paf ?",
+    "options": ["TPMP", "Salut les terriens", "ENSSATV", "In ze boite"],
+    "correctAnswer": 2,
+    "note": "ENSSATV LE SANG BRRRRR BANG BANG GRRRR PAH"
+  },
+  {
+    "question": "Qui a gagné la dernière édition de la route du rhum ?",
     "options": [
-      "Vincent Van Gogh",
-      "Pablo Picasso",
-      "Leonardo da Vinci",
-      "Claude Monet"
-    ],
-    "correctAnswer": 2
-  },
-  {
-    "question": "Quel est l'élément chimique dont le symbole est 'O' ?",
-    "options": ["Or", "Osmium", "Oxygène", "Oganesson"],
-    "correctAnswer": 2
-  },
-  {
-    "question": "Dans quelle ville se trouve la Statue de la Liberté ?",
-    "options": ["Los Angeles", "New York", "Miami", "San Francisco"],
-    "correctAnswer": 1
-  },
-  {
-    "question": "Quelle est la plus longue rivière du monde ?",
-    "options": ["Le Nil", "L'Amazone", "Le Yangtsé", "Le Mississippi"],
-    "correctAnswer": 1
-  },
-  {
-    "question": "Qui a écrit 'Les Misérables' ?",
-    "options": [
-      "Victor Hugo",
-      "Alexandre Dumas",
-      "Émile Zola",
-      "François Mauriac"
+      "Charles Caudrelier",
+      "Brigitte Lecordier",
+      "Thomas Ruyant",
+      "Manu du 6/9"
     ],
     "correctAnswer": 0
   },
   {
-    "question": "En quelle année l'homme a-t-il marché sur la Lune pour la première fois ?",
-    "options": ["1965", "1969", "1971", "1973"],
-    "correctAnswer": 1
-  },
-  {
-    "question": "Quel pays est le plus peuplé du monde ?",
-    "options": ["Inde", "États-Unis", "Chine", "Indonésie"],
+    "question": "Quelle est la ville ayant le prix au m carré le plus élevé en Bretagne avec 5286 euros/m2 ?",
+    "options": ["Rennes", "Vannes", "Saint-Lunaire", "Saint-Grégoire"],
     "correctAnswer": 2
   },
   {
-    "question": "Quel est le plus grand océan du monde ?",
-    "options": [
-      "L'océan Atlantique",
-      "L'océan Pacifique",
-      "L'océan Indien",
-      "L'océan Arctique"
-    ],
+    "question": "Quelle est la meilleure école d’ingé de Bretagne ?",
+    "options": ["ENSSAT", "ENIB", "ESIR", "ENSIBS"],
+    "correctAnswer": 0,
+    "source": "enssat.fr"
+  },
+  {
+    "question": "Dans quelle ville se trouve la forêt de Brocéliande ?",
+    "options": ["Brocéliande", "Pontivy", "Lannion", "Paimpont"],
+    "correctAnswer": 3
+  },
+  {
+    "question": "Où est née Anne de Bretagne ?",
+    "options": ["Rennes", "Nantes", "Orléans", "Lorient"],
     "correctAnswer": 1
+  },
+  {
+    "question": "Dans quelle ville se trouvent les Alignements de Carnac ?",
+    "options": ["Carnac", "La Trinité-sur-Mer", "Plouharmel", "Quiberon"],
+    "correctAnswer": 0
+  },
+  {
+    "question": "Pour quelle raison Pleucadeuc est connu ?",
+    "options": [
+      "On y trouve les alignements de Carnac",
+      "Vald y a fait un concert",
+      "son église",
+      "c’est la ville des jumeaux"
+    ],
+    "correctAnswer": 3
   }
 ]
